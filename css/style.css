@@ -3,10 +3,10 @@ html {
 }
 body {
     text-align: center;
-	
+
 }
 canvas {
-	padding: 5px 40px 10px 40px;
+	padding: 15px 50px 15px 50px;
 	border: 5px solid black;
 }
 h1 {

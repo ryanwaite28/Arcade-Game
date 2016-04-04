@@ -33,6 +33,7 @@ var Engine = (function(global) {
      * and handles properly calling the update and render methods.
      */
     function main() {
+      //console.log('Main Called');
         /* Get our time delta information which is required if your game
          * requires smooth animation. Because everyone's computer processes
          * instructions at different speeds we need a constant value that
@@ -64,6 +65,7 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
+      console.log('Init Called');
         reset();
         lastTime = Date.now();
         main();
@@ -79,6 +81,7 @@ var Engine = (function(global) {
      * on the entities themselves within your app.js file).
      */
     function update(dt) {
+      //console.log('Update Called');
         updateEntities(dt);
         // checkCollisions();
     }
@@ -91,10 +94,11 @@ var Engine = (function(global) {
      * render methods.
      */
     function updateEntities(dt) {
+      //console.log('Update Entities Called');
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
-        
+
     }
 
     /* This function initially draws the "game level", it will then call
@@ -104,6 +108,7 @@ var Engine = (function(global) {
      * they are just drawing the entire screen over and over.
      */
     function render() {
+      //console.log('Render Called');
         /* This array holds the relative URL to the image used
          * for that particular row of the game level.
          */
@@ -151,6 +156,7 @@ var Engine = (function(global) {
      * on your enemy and player entities within app.js
      */
     function renderEntities() {
+      //console.log('Render Entities Called');
         /* Loop through all of the objects within the allEnemies array and call
          * the render function you have defined.
          */
@@ -178,7 +184,8 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/char-pink-girl.png'
     ]);
     Resources.onReady(init);
 
