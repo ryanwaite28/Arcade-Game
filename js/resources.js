@@ -96,6 +96,7 @@
      * when all requested images are properly loaded.
      */
     function onReady(func) {
+      console.log(func);
         readyCallbacks.push(func);
     }
 

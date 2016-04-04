@@ -1,4 +1,18 @@
-var girl = 'images/char-horn-girl.png';
+$(document).ready(function(){
+
+  var boy = $('#boy');
+  var girl = $('#girl');
+
+  boy.click(function(){
+    girl.prop('checked', false);
+  });
+
+  girl.click(function(){
+    boy.prop('checked', false);
+  });
+
+});
+
 var score = 0;
 var speedNumber = 0;
 var title = 'Beginner';
@@ -33,7 +47,7 @@ Enemy.prototype.update = function(dt) {
     // my alert
 	//alert("You Lose! Muahahahahahahahah! Start Over!");
     player.resetPlayer();
-	score--;
+	//score--;
 	speedNumber--;
 	$('#score').text(score);
 	updateTitle();
@@ -49,15 +63,23 @@ Enemy.prototype.randomSpeed = function() {
   this.speed = 50 * someSpeed;
 };
 // Player Code //
-// 
+//
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 //The Player
+var player;
 var startX = 404;
 var startY = 485;
+
+var boy = 'images/char-boy.png';
+var girl = 'images/char-pink-girl.png';
+
+var image;
+image = boy;
+
 var Player = function() {
-  this.character = 'images/char-boy.png';
+  this.character = image;
   this.x = startX;
   this.y = startY;
   this.borderCheck = {
@@ -67,19 +89,27 @@ var Player = function() {
   };
 };
 
-Player.prototype.changeCharacter = function Switch() {
-  var Select = prompt("Pick Your Character.");
-  if (Select === girl) {
-    Player.character = 'images/char-horn.girl.png';
-  } else {
-    Player.character = 'images/char-boy.png';
+function changeCharacter(str) {
+  console.log(str);
+
+
+  if( str == 'boy' ) {
+    //image = boy;
+    player.character = boy;
+    //player = new Player();
   }
-};
+  if( str == 'girl' ) {
+    //image = girl;
+    player.character = girl;
+    //player = new Player();
+  }
+
+}
 
 function updateTitle() {
 	if(score < 10) {
 		$('#title').text('Beginner');
-		
+
 	}
 	if(score > 9) {
 
@@ -89,14 +119,14 @@ function updateTitle() {
 
 		$('#title').text('Expert');
 	}
-	if(score > 29) {
+	/*if(score > 29) {
 
 		$('#title').text('Master');
-	}
-	if(score > 39) {
+	}*/
+	if(score > 29) {
 		alert('You Did It! You Reached Legendary! That\'s Enough...');
 		document.write('Game Over!');
-		
+
 	}
 
 };
@@ -121,18 +151,21 @@ Player.prototype.handleInput = function(keyInput) {
     this.x += moveLeftRight;
   } else if (keyInput === "up") {
     if (this.y <= 50) {
-	  // my alert
-      //alert("You Won!...But Can You Do It Again.........?");
       this.resetPlayer();
-	  score++;
-	  speedNumber++;
-	  $('#score').text(score);
-	  updateTitle();
-      return null;
+	    score++;
+	    speedNumber++;
+	    $('#score').text(score);
+	    updateTitle();
+      if(score > 25) {
+        addEnemies();
+      }
+      return null
     }
-	
+
     this.y -= moveUpDown;
-  } else if (keyInput === "down") {
+  }
+
+  else if (keyInput === "down") {
     if (this.borderCheck.bottomWall) {
       return null;
     }
@@ -171,14 +204,21 @@ Player.prototype.resetPlayer = function() {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [];
+
 for (var i = 0; i < 5; i++) {
   var aSpeed = Math.floor(Math.random() * 4 + 1) * 60;
   allEnemies.push(new Enemy(-80, 60 + 80 * i, aSpeed));
- // allEnemies.push(new Enemy(-80, 60 + 80 * i, aSpeed));
- // allEnemies.push(new Enemy(-80, 60 + 80 * i, aSpeed));
 }
+
+function addEnemies() {
+  for (var i = 0; i < 5; i++) {
+    var aSpeed = Math.floor(Math.random() * 4 + 1) * 25;
+    allEnemies.push(new Enemy(-80, 60 + 80 * i, aSpeed));
+  }
+}
+
 // Place the player object in a variable called player
-var player = new Player();
+player = new Player();
 updateTitle();
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
